@@ -35,8 +35,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/p2p"
+	"github.com/blockchain/shopchain/metrics"
+	"github.com/blockchain/shopchain/p2p"
 )
 
 // error codes used by this  protocol scheme

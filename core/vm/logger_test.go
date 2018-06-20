@@ -20,8 +20,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/params"
 )
 
 type dummyContractRef struct {

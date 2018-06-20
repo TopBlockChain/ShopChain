@@ -33,10 +33,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/p2p/netutil"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/crypto"
+	"github.com/blockchain/shopchain/log"
+	"github.com/blockchain/shopchain/p2p/netutil"
 )
 
 const (

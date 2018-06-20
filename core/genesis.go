@@ -25,16 +25,16 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/common/hexutil"
+	"github.com/blockchain/shopchain/common/math"
+	"github.com/blockchain/shopchain/core/rawdb"
+	"github.com/blockchain/shopchain/core/state"
+	"github.com/blockchain/shopchain/core/types"
+	"github.com/blockchain/shopchain/ethdb"
+	"github.com/blockchain/shopchain/log"
+	"github.com/blockchain/shopchain/params"
+	"github.com/blockchain/shopchain/rlp"
 )
 
 //go:generate gencodec -type Genesis -field-override genesisSpecMarshaling -out gen_genesis.go

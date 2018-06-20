@@ -21,17 +21,17 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/blockchain/shopchain/accounts"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/consensus"
+	"github.com/blockchain/shopchain/core"
+	"github.com/blockchain/shopchain/core/state"
+	"github.com/blockchain/shopchain/core/types"
+	"github.com/blockchain/shopchain/eth/downloader"
+	"github.com/blockchain/shopchain/ethdb"
+	"github.com/blockchain/shopchain/event"
+	"github.com/blockchain/shopchain/log"
+	"github.com/blockchain/shopchain/params"
 )
 
 // Backend wraps all methods required for mining.

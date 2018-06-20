@@ -28,8 +28,8 @@ import (
 	"testing/quick"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/crypto"
 )
 
 func TestTable_pingReplace(t *testing.T) {

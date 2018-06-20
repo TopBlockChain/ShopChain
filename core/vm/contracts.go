@@ -21,11 +21,11 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/bn256"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/common/math"
+	"github.com/blockchain/shopchain/crypto"
+	"github.com/blockchain/shopchain/crypto/bn256"
+	"github.com/blockchain/shopchain/params"
 	"golang.org/x/crypto/ripemd160"
 )
 

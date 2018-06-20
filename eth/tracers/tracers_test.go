@@ -25,15 +25,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/tests"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/common/hexutil"
+	"github.com/blockchain/shopchain/common/math"
+	"github.com/blockchain/shopchain/core"
+	"github.com/blockchain/shopchain/core/types"
+	"github.com/blockchain/shopchain/core/vm"
+	"github.com/blockchain/shopchain/ethdb"
+	"github.com/blockchain/shopchain/rlp"
+	"github.com/blockchain/shopchain/tests"
 )
 
 // To generate a new callTracer test, copy paste the makeTest method below into

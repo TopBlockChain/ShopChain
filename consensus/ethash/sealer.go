@@ -24,10 +24,10 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/consensus"
+	"github.com/blockchain/shopchain/core/types"
+	"github.com/blockchain/shopchain/log"
 )
 
 // Seal implements consensus.Engine, attempting to find a nonce that satisfies

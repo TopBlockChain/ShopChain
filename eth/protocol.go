@@ -21,11 +21,11 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/core"
+	"github.com/blockchain/shopchain/core/types"
+	"github.com/blockchain/shopchain/event"
+	"github.com/blockchain/shopchain/rlp"
 )
 
 // Constants to match up protocol versions and messages

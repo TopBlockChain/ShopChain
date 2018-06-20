@@ -20,9 +20,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/light"
+	"github.com/blockchain/shopchain/core/rawdb"
+	"github.com/blockchain/shopchain/eth/downloader"
+	"github.com/blockchain/shopchain/light"
 )
 
 // syncer is responsible for periodically synchronising with the network, both

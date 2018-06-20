@@ -28,12 +28,12 @@ import (
 
 	"net"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/p2p/nat"
+	"github.com/blockchain/shopchain/common"
+	"github.com/blockchain/shopchain/common/hexutil"
+	"github.com/blockchain/shopchain/crypto"
+	"github.com/blockchain/shopchain/p2p"
+	"github.com/blockchain/shopchain/p2p/discover"
+	"github.com/blockchain/shopchain/p2p/nat"
 )
 
 var keys = []string{

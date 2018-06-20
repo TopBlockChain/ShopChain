@@ -21,8 +21,8 @@ import (
 	mrand "math/rand"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/blockchain/shopchain/crypto"
+	"github.com/blockchain/shopchain/rlp"
 )
 
 func generateMessageParams() (*MessageParams, error) {

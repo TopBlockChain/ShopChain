@@ -20,10 +20,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/blockchain/shopchain/consensus/ethash"
+	"github.com/blockchain/shopchain/core/vm"
+	"github.com/blockchain/shopchain/ethdb"
+	"github.com/blockchain/shopchain/params"
 )
 
 // Tests that DAO-fork enabled clients can properly filter out fork-commencing
