@@ -36,8 +36,11 @@ import (
 
 // Ethash proof-of-work protocol constants.
 var (
-	FrontierBlockReward    *big.Int = big.NewInt(5e+18) // Block reward in wei for successfully mining a block
-	ByzantiumBlockReward   *big.Int = big.NewInt(3e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	// FrontierBlockReward    *big.Int = big.NewInt(5e+18) // Block reward in wei for successfully mining a block
+	// ByzantiumBlockReward   *big.Int = big.NewInt(3e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	blockReward *big.Int = big.NewInt(18e17) // Block reward in wei for successfully mining a block
+	XF_reward *big.Int = big.NewInt(9e17)
+	KY_reward *big.Int = big.NewInt(3e17) // Block reward in wei for successfully mining a block
 	maxUncles                       = 2                 // Maximum number of uncles allowed in a single block
 	allowedFutureBlockTime          = 15 * time.Second  // Max time from current time allowed for blocks, before they're considered future blocks
 )
@@ -299,8 +302,8 @@ func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Heade
 	switch {
 	case config.IsByzantium(next):
 		return calcDifficultyByzantium(time, parent)
-	case config.IsHomestead(next):
-		return calcDifficultyHomestead(time, parent)
+	// case config.IsHomestead(next):
+	// 	return calcDifficultyHomestead(time, parent)
 	default:
 		return calcDifficultyFrontier(time, parent)
 	}
@@ -462,6 +465,7 @@ func calcDifficultyFrontier(time uint64, parent *types.Header) *big.Int {
 // the PoW difficulty requirements.
 func (ethash *Ethash) VerifySeal(chain consensus.ChainReader, header *types.Header) error {
 	// If we're running a fake PoW, accept any seal as valid
+	var diff_just *big.Int
 	if ethash.config.PowMode == ModeFake || ethash.config.PowMode == ModeFullFake {
 		time.Sleep(ethash.fakeDelay)
 		if ethash.fakeFail == header.Number.Uint64() {
@@ -493,7 +497,21 @@ func (ethash *Ethash) VerifySeal(chain consensus.ChainReader, header *types.Head
 	if !bytes.Equal(header.MixDigest[:], digest) {
 		return errInvalidMixDigest
 	}
-	target := new(big.Int).Div(maxUint256, header.Difficulty)
+
+	var just_time *big.Int
+	if header.Tokentime.Cmp(big.NewInt(1)) < 0 {
+		just_time = big.NewInt(1)
+	} else {
+		just_time = header.Tokentime
+	}
+	if just_time.Cmp(header.Difficulty) > 0 {
+		diff_just = big.NewInt(1)
+	} else {
+		diff_just = new(big.Int).Div(header.Difficulty, just_time)
+	}	
+	target := new(big.Int).Div(maxUint256, diff_just)
+
+	// target := new(big.Int).Div(maxUint256, header.Difficulty)
 	if new(big.Int).SetBytes(result).Cmp(target) > 0 {
 		return errInvalidPoW
 	}
@@ -533,12 +551,28 @@ var (
 // included uncles. The coinbase of each uncle block is also rewarded.
 func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header *types.Header, uncles []*types.Header) {
 	// Select the correct block reward based on chain progression
-	blockReward := FrontierBlockReward
-	if config.IsByzantium(header.Number) {
-		blockReward = ByzantiumBlockReward
-	}
-	// Accumulate the rewards for the miner and any included uncles
+	// blockReward := FrontierBlockReward
+	// if config.IsByzantium(header.Number) {
+	// 	blockReward = ByzantiumBlockReward
+	// }
+	// // Accumulate the rewards for the miner and any included uncles
+	// reward := new(big.Int).Set(blockReward)
+	// r := new(big.Int)
+	// for _, uncle := range uncles {
+	// 	r.Add(uncle.Number, big8)
+	// 	r.Sub(r, header.Number)
+	// 	r.Mul(r, blockReward)
+	// 	r.Div(r, big8)
+	// 	state.AddBalance(uncle.Coinbase, r)
+
+	// 	r.Div(blockReward, big32)
+	// 	reward.Add(reward, r)
+	// }
+	// state.AddBalance(header.Coinbase, reward)
 	reward := new(big.Int).Set(blockReward)
+	//var XP_GD = common.HexToAddress("0xf933b0CF38a270938B9D6bb41f004374363C3EC0")
+	var XP_XF = params.XP_XF
+	var XP_KY = params.XP_KY
 	r := new(big.Int)
 	for _, uncle := range uncles {
 		r.Add(uncle.Number, big8)
@@ -551,4 +585,15 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 		reward.Add(reward, r)
 	}
 	state.AddBalance(header.Coinbase, reward)
+	//	log.Info("计算挖矿", "算力帐号：", header.Coinbase, "奖励数量", XP_blockReward, "单位", "XPing")
+	//state.AddBalance(XP_GD, reward)
+	//	log.Info("投资挖矿", "股东帐号：", XP_GD, "奖励数量", XP_blockReward, "单位", "XPing")
+	state.AddBalance(XP_XF, XF_reward)
+	//	log.Info("消费挖矿", "基金帐号：", XP_XF, "奖励数量", XP_blockReward, "单位", "XPing")
+	state.AddBalance(XP_KY, KY_reward)
+	//	log.Info("技术挖矿", "科研帐号：", XP_KY, "奖励数量", KY_blockReward, "单位", "XPing")
+
+
+
+
 }

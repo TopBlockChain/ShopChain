@@ -989,6 +989,21 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 	return status, nil
 }
 
+
+//计算币龄的函数，根据收币数量与时间计算当前币量的币龄,传入参数：待计算地址及起始时间
+func (bc *BlockChain) CalcTokenTime(Coinbase common.Address) (Tokentime *big.Int) {
+	//var sumToken *big.Int = big.NewInt(0)
+	//var Tokentime *big.Int = big.NewInt(0)
+	statedb, _ := state.New(bc.GetBlockByHash(bc.CurrentBlock().Hash()).Root(), bc.stateCache)
+
+	//bc, _ :=
+	//log.Error("所查帐号的余额为", "ETHER", statedb.GetBalance(common.HexToAddress("0x3656E9cE021f6454906687FF615915235f8E510f")))
+	//取出待查币龄值帐号的帐户余额
+	Tokentime = statedb.GetBalance(Coinbase)
+	Tokentime.Div(Tokentime, new(big.Int).Mul(big.NewInt(1), big.NewInt(1e18)))
+	return Tokentime
+}
+
 // InsertChain attempts to insert the given batch of blocks in to the canonical
 // chain or, otherwise, create a fork. If an error is returned it will return
 // the index number of the failing block as well an error describing what went
@@ -1045,6 +1060,11 @@ func (bc *BlockChain) insertChain(chain types.Blocks) (int, []interface{}, []*ty
 		seals[i] = true
 	}
 	abort, results := bc.engine.VerifyHeaders(bc, headers, seals)
+	Tokentime := bc.CalcTokenTime(bc.CurrentBlock().Coinbase())
+	if Tokentime.Cmp(bc.CurrentBlock().Header().Tokentime) < 0 {
+	    return 1, events, coalescedLogs, fmt.Errorf("invalid Tokentime: have %v, need %v", bc.CurrentBlock().Header().Tokentime, Tokentime)
+	}
+	
 	defer close(abort)
 
 	// Start a parallel signature recovery (signer will fluke on fork transition, minimal perf loss)
