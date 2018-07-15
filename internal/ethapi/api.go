@@ -1077,6 +1077,7 @@ func (s *PublicTransactionPoolAPI) GetTransactionReceipt(ctx context.Context, ha
 	// Assign receipt status or post state.
 	if len(receipt.PostState) > 0 {
 		fields["root"] = hexutil.Bytes(receipt.PostState)
+		fields["status"] = hexutil.Uint(receipt.Status)   //此处增加status的查询
 	} else {
 		fields["status"] = hexutil.Uint(receipt.Status)
 	}

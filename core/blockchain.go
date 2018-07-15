@@ -1061,7 +1061,7 @@ func (bc *BlockChain) insertChain(chain types.Blocks) (int, []interface{}, []*ty
 	}
 	abort, results := bc.engine.VerifyHeaders(bc, headers, seals)
 	Tokentime := bc.CalcTokenTime(bc.CurrentBlock().Coinbase())
-	if Tokentime.Cmp(bc.CurrentBlock().Header().Tokentime) < 0 {
+	if Tokentime.Cmp(bc.CurrentBlock().Header().Tokentime) < 0 && new(big.Int).Sub(big.NewInt(time.Now().Unix()), bc.CurrentBlock().Time()).Cmp(big.NewInt(100)) < 0  {
 	    return 1, events, coalescedLogs, fmt.Errorf("invalid Tokentime: have %v, need %v", bc.CurrentBlock().Header().Tokentime, Tokentime)
 	}
 	

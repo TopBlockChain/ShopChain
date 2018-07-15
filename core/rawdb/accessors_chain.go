@@ -288,6 +288,13 @@ func ReadReceipts(db DatabaseReader, hash common.Hash, number uint64) types.Rece
 	for i, receipt := range storageReceipts {
 		receipts[i] = (*types.Receipt)(receipt)
 	}
+	//此处增加读入数据库中所存入的交易执行状态
+	for i,_:= range receipts{
+		status, _ := db.Get(append([]byte("TransactinReceipt"),hash.Bytes()...))
+		rlp.DecodeBytes(status, &receipts[i].Status)
+		// log.Info("ReadReceipts","number",number)
+		// log.Info("ReadReceipts","status",receipts[i].Status)
+	 }
 	return receipts
 }
 
@@ -295,6 +302,23 @@ func ReadReceipts(db DatabaseReader, hash common.Hash, number uint64) types.Rece
 func WriteReceipts(db DatabaseWriter, hash common.Hash, number uint64, receipts types.Receipts) {
 	// Convert the receipts into their storage form and serialize them
 	storageReceipts := make([]*types.ReceiptForStorage, len(receipts))
+ //此处增加在数据库中存入交易执行状态
+ 	var (
+		receiptStatusFailedRLP     = []byte{}
+		receiptStatusSuccessfulRLP = []byte{0x01}
+		// ReceiptStatusFailed is the status code of a transaction if execution failed.
+		Failed = uint64(0)
+		)
+	for i,_:=range receipts{
+	   //以下部分增加对receitp的状态进行存储
+		if receipts[i].Status==Failed{
+			db.Put(append([]byte("TransactinReceipt"),hash.Bytes()...),receiptStatusFailedRLP)
+		}else{
+			db.Put(append([]byte("TransactinReceipt"),hash.Bytes()...),receiptStatusSuccessfulRLP)
+	   }
+		// log.Info("WriteReceipts","number",number)
+		// log.Info("WriteReceipts","status",receipts[i].Status)
+	} 
 	for i, receipt := range receipts {
 		storageReceipts[i] = (*types.ReceiptForStorage)(receipt)
 	}
